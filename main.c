@@ -35,12 +35,14 @@ void menu(UserInput_t * userInput)
 
     printf("Put your text in here: ");
     fgets(str1, STRING_SIZE, stdin);
+    str1[strcspn(str1, "\n")] = 0;
     userInput->text = str1;
 
     char * str2 = (char*)malloc(sizeof(char) * (STRING_SIZE + 1));
 
     printf("Put the words here: ");
     fgets(str2, STRING_SIZE, stdin);
+    str2[strcspn(str2, "\n")] = 0;
     userInput->words = str2;
 }
 
@@ -59,8 +61,8 @@ int countWords(UserInput_t * userInput, int * wordsCounter)
 
             str[s] = '\0';
 
-            for (int j = 0, k = 0; j < strlen(userInput->text); j++)
-            {               
+            for (int j = 0, k = 0; j <= strlen(userInput->text); j++)
+            {           
                 if (str[k] == userInput->text[j])
                 {
                     k++;
@@ -70,8 +72,9 @@ int countWords(UserInput_t * userInput, int * wordsCounter)
                     k = 0;
                 }
 
-                if (k == strlen(str) && (userInput->text[j + 1] == ' ' || userInput->text[j + 1] == '\0'))
+                if (k == strlen(str) && (userInput->text[j + 1] == ' ' || userInput->text[j + 1] == '\0') &&(userInput->text[j - k] == ' ' || j - k == -1))
                 {
+                    
                     wordsCounter[index]+=1;
 
                     k = 0;
