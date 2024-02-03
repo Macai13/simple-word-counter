@@ -64,17 +64,12 @@ int countWords(UserInput_t * userInput, int * wordsCounter)
             for (int j = 0, k = 0; j <= strlen(userInput->text); j++)
             {           
                 if (str[k] == userInput->text[j])
-                {
                     k++;
-                }
                 else 
-                {
                     k = 0;
-                }
 
                 if (k == strlen(str) && (userInput->text[j + 1] == ' ' || userInput->text[j + 1] == '\0') &&(userInput->text[j - k] == ' ' || j - k == -1))
                 {
-                    
                     wordsCounter[index]+=1;
 
                     k = 0;
